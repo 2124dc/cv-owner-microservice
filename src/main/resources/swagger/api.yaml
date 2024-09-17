@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: CV Auth Service API
+  description: API for Authentication Service that provides login functionality and returns JWT tokens.
+  version: 1.0.0
+  contact:
+    name: Support Team
+    email: support@chavdarvishranti.com
+servers:
+  - url: http://localhost:8072/cv-owner
+    description: Local server
+
+paths:
+  /owner/register:
+    post:
+      summary: Register a new Owner
+      description: Register a new Owner with Ownername, password, and email.
+      operationId: registerOwner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnerRegisterRequest'
+      responses:
+        '201':
+          description: Owner registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request - invalid input format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Conflict - Owner already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict - Owner already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    OwnerRegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "sharad@example.com"
+        name:
+          type: string
+          example: "sharad"
+        mobile:
+          type: string
+          example: "0987654321"
+        userRole:
+          type: string
+          enum:
+            - ADMIN
+            - OWNER
+          example: OWNER
+      required:
+        - username
+        - password
+        - userRole
+
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Operation successful"
+        data:
+          type: object
+          x-java-type: Object
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-09-14T15:00:00Z"
+      required:
+        - message
+        - timestamp
+      description: |
+        This schema represents a successful API response. 
+        **Constructor**:
+        ```
+        public SuccessResponse(String message, Object data) {
+            this.message = message;
+            this.data = data;
+            this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+        }
+        ```
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Invalid input format"
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-09-14T15:00:00Z"
+        status:
+          type: integer
+          example: 400
+      required:
+        - message
+        - timestamp
+        - status
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Auth
+    description: Authentication related endpoints

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: cv-owner-microservice
+  discovery:
+    client:
+      registration:
+        eureka:
+          enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8060/eureka/
