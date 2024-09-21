@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OwnerController implements OwnerApiDelegate {
 
@@ -25,6 +27,13 @@ public class OwnerController implements OwnerApiDelegate {
         logger.info("AuthController -> authRegisterPost : {}", ownerRegisterRequest);
         Owner owner = ownerService.saveOwner(ownerRegisterRequest);
         return new ResponseEntity<>(Common.getSuccessResponse("Data Saved Successfully", owner), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<SuccessResponse> getAllOwners() {
+        logger.info("AuthController -> getAllOwners....");
+        List<Owner> owners = ownerService.getAllOwners();
+        return new ResponseEntity<>(Common.getSuccessResponse("Success", owners), HttpStatus.OK);
     }
 }
 
