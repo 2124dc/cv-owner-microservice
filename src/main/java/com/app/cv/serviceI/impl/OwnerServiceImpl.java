@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.app.cv.repository.OwnerRepository;
 
+import java.util.List;
+
 @Service
 public class OwnerServiceImpl implements IOwnerService {
 
@@ -35,5 +37,10 @@ public class OwnerServiceImpl implements IOwnerService {
         return ownerRepository.save(admin);
     }
 
-    
+    @Override
+    public List<Owner> getAllOwners() {
+        logger.info("AuthDetailsService -> getAllOwners ");
+        List<Owner> ownerList = ownerRepository.findAll();
+        return  ownerList;
+    }
 }
