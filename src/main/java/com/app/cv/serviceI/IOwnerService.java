@@ -13,4 +13,6 @@ public interface IOwnerService {
     Owner saveOwner(OwnerRegisterRequest ownerRegisterRequest);
 
     List<Owner> getAllOwners();
+
+    Owner getOwnerById(String id);
 }
