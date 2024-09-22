@@ -20,9 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Owner {
     @Id
     private String id;
+    private String name;
     private String email;
     private String mobile;
     private UserRole userRole;
+    private boolean isEnabled;
     @CreatedDate
     private LocalDateTime  createdAt;
 

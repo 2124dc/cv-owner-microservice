@@ -2,6 +2,7 @@ package com.app.cv.delegateImpl;
 
 import java.util.List;
 
+import com.app.cv.model.OwnerUpdateRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,14 @@ public class OwnerController implements OwnerApiDelegate {
         List<Owner> owners = ownerService.getAllOwners();
         return new ResponseEntity<>(Common.getSuccessResponse("Success", owners), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<SuccessResponse> updateOwner(String id, OwnerUpdateRequest ownerUpdateRequest) {
+
+      Owner owner = ownerService.updateOwner(id, ownerUpdateRequest);
+        return new ResponseEntity<>(Common.getSuccessResponse("Success", owner), HttpStatus.OK);
+    }
+
+
 }
 

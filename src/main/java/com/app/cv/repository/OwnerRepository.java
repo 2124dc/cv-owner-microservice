@@ -13,5 +13,7 @@ public interface OwnerRepository extends MongoRepository<Owner, String> {
     boolean existsByEmail(@NotNull String username);
 
     Optional<Owner> findById(String ownerId);
+
+    Owner save(Optional<Owner> owner);
 }
 

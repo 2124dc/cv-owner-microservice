@@ -5,6 +5,7 @@ import com.app.cv.exception.UserNotFoundException;
 import com.app.cv.mapper.IOwnerMapper;
 import com.app.cv.model.Owner;
 import com.app.cv.model.OwnerRegisterRequest;
+import com.app.cv.model.OwnerUpdateRequest;
 import com.app.cv.serviceI.IOwnerService;
 
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class OwnerServiceImpl implements IOwnerService {
     @Override
     public List<Owner> getAllOwners() {
         logger.info("AuthDetailsService -> getAllOwners ");
-        return  ownerRepository.findAll();
+        return ownerRepository.findAll();
     }
 
     @Override
@@ -51,12 +52,30 @@ public class OwnerServiceImpl implements IOwnerService {
         if (ownerId == null) {
             throw new IllegalArgumentException("ID must not be null");
         }
-        Optional<Owner> owner =  ownerRepository.findById(ownerId);
+        Optional<Owner> owner = ownerRepository.findById(ownerId);
 
-        if(owner.isPresent()){
+        if (owner.isPresent()) {
             return owner.get();
-        }else {
-            throw new UserNotFoundException("User not available for id :"+ ownerId);
+        } else {
+            throw new UserNotFoundException("User not available for id :" + ownerId);
+        }
+    }
+
+    @Override
+    public Owner updateOwner(String ownerId, OwnerUpdateRequest ownerUpdateRequest) {
+        logger.info("AuthDetailsService -> updateOwner : {}", ownerId);
+        Optional<Owner> owner = ownerRepository.findById(ownerId);
+        if (owner.isPresent()) {
+            Owner updateOwner = owner.get();
+            if (ownerUpdateRequest.getName() != null) {
+                updateOwner.setName(ownerUpdateRequest.getName());
+            }
+            if (ownerUpdateRequest.getMobile() != null) {
+                updateOwner.setMobile(ownerUpdateRequest.getMobile());
+            }
+            return ownerRepository.save(updateOwner);
+        } else {
+            throw new UserNotFoundException("User not available for id :" + ownerId);
         }
     }
 }

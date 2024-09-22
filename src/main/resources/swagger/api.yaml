@@ -122,6 +122,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+    put:
+      summary: Update owner by id
+      description: Update existing owner details.
+      operationId: updateOwner
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the owner to update
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnerUpdateRequest'
+      responses:
+        '200':
+          description: Owner updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request - invalid input format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Owner not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -153,6 +190,16 @@ components:
         - password
         - userRole
 
+    OwnerUpdateRequest:
+      type: object
+      properties:
+
+        name:
+          type: string
+          example: "sharad"
+        mobile:
+          type: string
+          example: "0987654321"
     SuccessResponse:
       type: object
       properties:

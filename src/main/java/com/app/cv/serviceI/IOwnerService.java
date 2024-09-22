@@ -1,5 +1,6 @@
 package com.app.cv.serviceI;
 
+import com.app.cv.model.OwnerUpdateRequest;
 import org.springframework.stereotype.Service;
 
 import com.app.cv.model.Owner;
@@ -15,4 +16,6 @@ public interface IOwnerService {
     List<Owner> getAllOwners();
 
     Owner getOwnerById(String id);
+
+    Owner updateOwner(String id, OwnerUpdateRequest ownerUpdateRequest);
 }
