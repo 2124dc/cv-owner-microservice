@@ -1,7 +1,6 @@
 package com.app.cv.serviceI.impl;
 
 import com.app.cv.exception.UserAlreadyExistException;
-import com.app.cv.exception.UserNotFoundException;
 import com.app.cv.mapper.IOwnerMapper;
 import com.app.cv.model.Owner;
 import com.app.cv.model.OwnerRegisterRequest;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.app.cv.repository.OwnerRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OwnerServiceImpl implements IOwnerService {
@@ -42,21 +40,7 @@ public class OwnerServiceImpl implements IOwnerService {
     @Override
     public List<Owner> getAllOwners() {
         logger.info("AuthDetailsService -> getAllOwners ");
-        return  ownerRepository.findAll();
-    }
-
-    @Override
-    public Owner getOwnerById(String ownerId) {
-        logger.info("AuthDetailsService -> getOwnerById : {}", ownerId);
-        if (ownerId == null) {
-            throw new IllegalArgumentException("ID must not be null");
-        }
-        Optional<Owner> owner =  ownerRepository.findById(ownerId);
-
-        if(owner.isPresent()){
-            return owner.get();
-        }else {
-            throw new UserNotFoundException("User not available for id :"+ ownerId);
-        }
+        List<Owner> ownerList = ownerRepository.findAll();
+        return  ownerList;
     }
 }
