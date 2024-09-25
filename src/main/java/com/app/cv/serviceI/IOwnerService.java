@@ -18,4 +18,6 @@ public interface IOwnerService {
     Owner getOwnerById(String id);
 
     Owner updateOwner(String id, OwnerUpdateRequest ownerUpdateRequest);
+
+    Owner deleteOwner(String id);
 }

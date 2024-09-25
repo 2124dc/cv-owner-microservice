@@ -47,11 +47,14 @@ public class OwnerController implements OwnerApiDelegate {
 
     @Override
     public ResponseEntity<SuccessResponse> updateOwner(String id, OwnerUpdateRequest ownerUpdateRequest) {
-
-      Owner owner = ownerService.updateOwner(id, ownerUpdateRequest);
+         Owner owner = ownerService.updateOwner(id, ownerUpdateRequest);
         return new ResponseEntity<>(Common.getSuccessResponse("Success", owner), HttpStatus.OK);
     }
 
-
+    @Override
+    public ResponseEntity<SuccessResponse> disableOwner(String id) {
+        logger.info("AuthController -> deleteOwner...."+ id);
+        Owner owner = ownerService.deleteOwner(id);
+        return new ResponseEntity<>(Common.getSuccessResponse("Owner account Delete successfully", owner), HttpStatus.OK);
+    }
 }
-

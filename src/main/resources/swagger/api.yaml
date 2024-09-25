@@ -159,6 +159,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+    delete:
+      summary: Delete owner by id
+      description: Delete an owner from the database using their ID.
+      operationId: disableOwner
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the owner to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Owner deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request - invalid input format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Owner not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   securitySchemes:
     bearerAuth:

@@ -24,7 +24,7 @@ public class Owner {
     private String email;
     private String mobile;
     private UserRole userRole;
-    private boolean isEnabled;
+    private boolean isEnabled ;
     @CreatedDate
     private LocalDateTime  createdAt;
 
